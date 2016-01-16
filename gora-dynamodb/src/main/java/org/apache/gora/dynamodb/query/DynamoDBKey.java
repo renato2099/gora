@@ -18,7 +18,13 @@
 
 package org.apache.gora.dynamodb.query;
 
-public class DynamoDBKey<H, R>  {
+
+/**
+ * Class abstracting a composed DynamoDB key.
+ * @param <H>
+ * @param <R>
+ */
+public class DynamoDBKey<H, R> {
   
   /**
    * Hash key used for a specific table 
@@ -60,5 +66,14 @@ public class DynamoDBKey<H, R>  {
    */
   public void setRangeKey(R rangeKey) {
     this.rangeKey = rangeKey;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append('[').append(hashKey != null? hashKey.toString():":");
+    sb.append(rangeKey != null? ":" + rangeKey.toString():"");
+    sb.append(']');
+    return sb.toString();
   }
 }
