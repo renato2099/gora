@@ -703,7 +703,7 @@
     <module>gora-hbase</module>
     <!-- module>gora-lucene</module -->
     <!--module>gora-dynamodb</module -->
-    <!--module>gora-sql</module -->
+    <module>gora-sql</module>
     <module>gora-maven-plugin</module>
     <module>gora-mongodb</module>
     <module>gora-shims-hadoop</module>

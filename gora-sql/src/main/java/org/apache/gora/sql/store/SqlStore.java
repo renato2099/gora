@@ -41,13 +41,13 @@ import org.apache.avro.Schema;
 import org.apache.avro.Schema.Field;
 import org.apache.avro.Schema.Type;
 import org.apache.avro.generic.GenericFixed;
-import org.apache.avro.ipc.ByteBufferInputStream;
-import org.apache.avro.ipc.ByteBufferOutputStream;
+//import org.apache.avro.ipc.ByteBufferInputStream;
+//import org.apache.avro.ipc.ByteBufferOutputStream;
 import org.apache.avro.specific.SpecificFixed;
 import org.apache.avro.util.Utf8;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.gora.persistency.StateManager;
+//import org.apache.gora.persistency.StateManager;
 import org.apache.gora.persistency.impl.PersistentBase;
 import org.apache.gora.query.PartitionQuery;
 import org.apache.gora.query.Query;
@@ -68,9 +68,9 @@ import org.apache.gora.util.AvroUtils;
 import org.apache.gora.util.ClassLoadingUtils;
 import org.apache.gora.util.IOUtils;
 import org.apache.gora.util.StringUtils;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  * A DataStore implementation for RDBMS with a SQL interface. SqlStore
@@ -154,8 +154,22 @@ public class SqlStore<K, T extends PersistentBase> extends DataStoreBase<K, T> {
 
   private DBVendor dbVendor;
 
-  public void initialize() throws IOException {
-      //TODO
+  @Override
+  public void initialize(Class<K> keyClass, Class<T> persistentClass, Properties properties) {
+    //TODO
+    try {
+      super.initialize(keyClass, persistentClass, properties);
+      String mappingFile = DataStoreFactory.getMappingFile(properties, this, DEFAULT_MAPPING_FILE);
+      String user = DataStoreFactory.findProperty(properties, this, USERNAME_PROPERTY, null);
+      String password = DataStoreFactory.findProperty(properties, this, PASSWORD_PROPERTY, null);
+      mapping = readMapping(mappingFile);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+
+  protected SqlMapping readMapping(String filename) {
+    return null;
   }
 
   @Override
