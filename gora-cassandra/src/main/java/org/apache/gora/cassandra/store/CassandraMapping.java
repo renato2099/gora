@@ -23,11 +23,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
-import me.prettyprint.cassandra.service.ThriftCfDef;
-import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
-import me.prettyprint.hector.api.ddl.ColumnType;
-import me.prettyprint.hector.api.ddl.ComparatorType;
+//import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
+//import me.prettyprint.cassandra.service.ThriftCfDef;
+//import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
+//import me.prettyprint.hector.api.ddl.ColumnType;
+//import me.prettyprint.hector.api.ddl.ComparatorType;
 
 import org.jdom.Element;
 import org.slf4j.Logger;
@@ -49,7 +49,7 @@ public class CassandraMapping {
   private static final String REPLICATION_FACTOR_ATTRIBUTE = "replication_factor"; 	
   private static final String REPLICATION_STRATEGY_ATTRIBUTE = "placement_strategy";
   
-  public static final String DEFAULT_REPLICATION_FACTOR = "1";		 
+  public static final String DEFAULT_REPLICATION_FACTOR = "1";
   public static final String DEFAULT_REPLICATION_STRATEGY = "org.apache.cassandra.locator.SimpleStrategy";
   public static final String DEFAULT_COLUMNS_TTL = "0";
   public static final String DEFAULT_GCGRACE_SECONDS = "0";
@@ -84,8 +84,8 @@ public class CassandraMapping {
   /**
    * Look up the column family from its name.
    */
-  private Map<String, BasicColumnFamilyDefinition> columnFamilyDefinitions = 
-		  new HashMap<>();
+//  private Map<String, BasicColumnFamilyDefinition> columnFamilyDefinitions =
+//		  new HashMap<>();
 
   
   /**
@@ -110,7 +110,7 @@ public class CassandraMapping {
    * Simply gets the Cassandra namespace for ColumnFamilies, typically one per application
    * @return
    */
-  public String getKeyspaceName() {
+  public String getKsName() {
     return this.keyspaceName;
   }
   
@@ -118,7 +118,7 @@ public class CassandraMapping {
    * gets the replication strategy
    * @return string class name to be used for strategy
    */
-  public String getKeyspaceReplicationStrategy() {
+  public String getKsReplicationStrategy() {
 	return this.keyspaceStrategy;
   }
   
@@ -126,7 +126,7 @@ public class CassandraMapping {
    * gets the replication factor
    * @return int replication factor
    */
-  public int getKeyspaceReplicationFactor() {
+  public int getKsReplicationFactor() {
 	return this.keyspaceRF;
   }
 
@@ -195,7 +195,7 @@ public class CassandraMapping {
     // load column family definitions
     List<Element> elements = keyspace.getChildren();
     for (Element element: elements) {
-      BasicColumnFamilyDefinition cfDef = new BasicColumnFamilyDefinition();
+//      BasicColumnFamilyDefinition cfDef = new BasicColumnFamilyDefinition();
       
       String familyName = element.getAttributeValue(NAME_ATTRIBUTE);
       if (familyName == null) {
@@ -227,17 +227,17 @@ public class CassandraMapping {
         if (LOG.isDebugEnabled()) {
           LOG.debug("Added super column family: '" + familyName + "'");
         }
-        cfDef.setColumnType(ColumnType.SUPER);
-        cfDef.setSubComparatorType(ComparatorType.BYTESTYPE);
+//        cfDef.setColumnType(ColumnType.SUPER);
+//        cfDef.setSubComparatorType(ComparatorType.BYTESTYPE);
       }
 
-      cfDef.setKeyspaceName(this.keyspaceName);
-      cfDef.setName(familyName);
-      cfDef.setComparatorType(ComparatorType.BYTESTYPE);
-      cfDef.setDefaultValidationClass(ComparatorType.BYTESTYPE.getClassName());
-
-      cfDef.setGcGraceSeconds(Integer.parseInt( gcgrace_scs!=null?gcgrace_scs:DEFAULT_GCGRACE_SECONDS));
-      this.columnFamilyDefinitions.put(familyName, cfDef);
+//      cfDef.setKeyspaceName(this.keyspaceName);
+//      cfDef.setName(familyName);
+//      cfDef.setComparatorType(ComparatorType.BYTESTYPE);
+//      cfDef.setDefaultValidationClass(ComparatorType.BYTESTYPE.getClassName());
+//
+//      cfDef.setGcGraceSeconds(Integer.parseInt( gcgrace_scs!=null?gcgrace_scs:DEFAULT_GCGRACE_SECONDS));
+//      this.columnFamilyDefinitions.put(familyName, cfDef);
 
     }
     
@@ -264,10 +264,10 @@ public class CassandraMapping {
         LOG.warn("TTL value is not defined for \"" + fieldName + "\" field. \n Using default value: " + DEFAULT_COLUMNS_TTL);
       }
 
-      BasicColumnFamilyDefinition columnFamilyDefinition = this.columnFamilyDefinitions.get(familyName);
-      if (columnFamilyDefinition == null) {
-        LOG.warn("Family " + familyName + " was not declared in the keyspace.");
-      }
+//      BasicColumnFamilyDefinition columnFamilyDefinition = this.columnFamilyDefinitions.get(familyName);
+//      if (columnFamilyDefinition == null) {
+//        LOG.warn("Family " + familyName + " was not declared in the keyspace.");
+//      }
 
       this.familyMap.put(fieldName, familyName);
       this.columnMap.put(fieldName, columnName);
@@ -312,15 +312,15 @@ public class CassandraMapping {
     return this.superFamilies.indexOf(family) != -1;
   }
 
-  public List<ColumnFamilyDefinition> getColumnFamilyDefinitions() {
-    List<ColumnFamilyDefinition> list = new ArrayList<>();
-    for (String key: this.columnFamilyDefinitions.keySet()) {
-      ColumnFamilyDefinition columnFamilyDefinition = this.columnFamilyDefinitions.get(key);
-      ThriftCfDef thriftCfDef = new ThriftCfDef(columnFamilyDefinition);
-      list.add(thriftCfDef);
-    }
-    
-    return list;
-  }
+//  public List<ColumnFamilyDefinition> getColumnFamilyDefinitions() {
+//    List<ColumnFamilyDefinition> list = new ArrayList<>();
+//    for (String key: this.columnFamilyDefinitions.keySet()) {
+//      ColumnFamilyDefinition columnFamilyDefinition = this.columnFamilyDefinitions.get(key);
+//      ThriftCfDef thriftCfDef = new ThriftCfDef(columnFamilyDefinition);
+//      list.add(thriftCfDef);
+//    }
+//
+//    return list;
+//  }
 
 }

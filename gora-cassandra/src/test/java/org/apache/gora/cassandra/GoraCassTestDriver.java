@@ -23,17 +23,16 @@
 
 package org.apache.gora.cassandra;
 
+import org.apache.cassandra.io.util.FileUtils;
+import org.apache.cassandra.service.CassandraDaemon;
 import org.apache.gora.GoraTestDriver;
-import org.apache.gora.cassandra.store.CassandraStore;
+import org.apache.gora.cassandra.st.CassStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
-import org.apache.cassandra.io.util.FileUtils;
-import org.apache.cassandra.service.CassandraDaemon;
-
 // Logging imports
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Helper class for third party tests using gora-cassandra backend. 
@@ -45,9 +44,9 @@ import org.slf4j.LoggerFactory;
  * @author lewismc
  */
 
-public class GoraCassandraTestDriver extends GoraTestDriver {
-  private static Logger log = LoggerFactory.getLogger(GoraCassandraTestDriver.class);
-  
+public class GoraCassTestDriver extends GoraTestDriver {
+  private static Logger log = LoggerFactory.getLogger(GoraCassTestDriver.class);
+
   private String baseDirectory = "target/test";
 
   private CassandraDaemon cassandraDaemon;
@@ -61,8 +60,8 @@ public class GoraCassandraTestDriver extends GoraTestDriver {
     return baseDirectory;
   }
 
-  public GoraCassandraTestDriver() {
-    super(CassandraStore.class);
+  public GoraCassTestDriver() {
+    super(CassStore.class);
   }
 	
   /**

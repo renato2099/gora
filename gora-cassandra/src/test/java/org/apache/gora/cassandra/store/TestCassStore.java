@@ -23,9 +23,8 @@
  */
 package org.apache.gora.cassandra.store;
 
-import java.io.IOException;
-
-import org.apache.gora.cassandra.GoraCassandraTestDriver;
+import org.apache.gora.cassandra.GoraCassTestDriver;
+import org.apache.gora.cassandra.st.CassStore;
 import org.apache.gora.examples.generated.Employee;
 import org.apache.gora.examples.generated.WebPage;
 import org.apache.gora.store.DataStore;
@@ -35,15 +34,17 @@ import org.apache.hadoop.conf.Configuration;
 import org.junit.Before;
 import org.junit.Ignore;
 
+import java.io.IOException;
+
 /**
  * Test for CassandraStore.
  */
-public class TestCassandraStore extends DataStoreTestBase{
+public class TestCassStore extends DataStoreTestBase {
 
   private Configuration conf;
 
   static {
-    setTestDriver(new GoraCassandraTestDriver());
+    setTestDriver(new GoraCassTestDriver());
   }
 
   @Before
@@ -54,19 +55,14 @@ public class TestCassandraStore extends DataStoreTestBase{
   @SuppressWarnings("unchecked")
   @Override
   protected DataStore<String, Employee> createEmployeeDataStore() throws IOException {
-    return DataStoreFactory.getDataStore(CassandraStore.class, String.class, Employee.class, conf);
+    return DataStoreFactory.getDataStore(CassStore.class, String.class, Employee.class, conf);
   }
 
   @SuppressWarnings("unchecked")
   @Override
   protected DataStore<String, WebPage> createWebPageDataStore() throws IOException {
-    return DataStoreFactory.getDataStore(CassandraStore.class, String.class, WebPage.class, conf);
+    return DataStoreFactory.getDataStore(CassStore.class, String.class, WebPage.class, conf);
   }
-
-  public GoraCassandraTestDriver getTestDriver() {
-    return (GoraCassandraTestDriver) testDriver;
-  }
-
 
   @Ignore("GORA-299 o.a.g.cassandra.CassandraStore#newQuery() should not use query.setFields(getFieldsToQuery(null));")
   @Override
