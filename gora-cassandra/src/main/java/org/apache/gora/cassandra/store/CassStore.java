@@ -1,6 +1,6 @@
-package org.apache.gora.cassandra.st;
+package org.apache.gora.cassandra.store;
 
-import org.apache.gora.cassandra.ser.CassSerializer;
+import org.apache.gora.cassandra.serializer.CassSerializer;
 import org.apache.gora.persistency.impl.PersistentBase;
 import org.apache.gora.query.PartitionQuery;
 import org.apache.gora.query.Query;

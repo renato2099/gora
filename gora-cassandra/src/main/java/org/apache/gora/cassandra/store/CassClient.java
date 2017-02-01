@@ -1,10 +1,8 @@
-package org.apache.gora.cassandra.st;
+package org.apache.gora.cassandra.store;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.schemabuilder.SchemaBuilder;
-import org.apache.gora.cassandra.store.CassandraMapping;
-import org.apache.gora.cassandra.store.CassandraMappingManager;
 import org.apache.gora.persistency.impl.PersistentBase;
 
 import java.util.Map;

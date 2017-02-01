@@ -1,10 +1,8 @@
-package org.apache.gora.cassandra.ser;
+package org.apache.gora.cassandra.serializer;
 
-import org.apache.gora.cassandra.st.CassClient;
+import org.apache.gora.cassandra.store.CassClient;
 import org.apache.gora.cassandra.store.CassandraMapping;
 import org.apache.gora.persistency.impl.PersistentBase;
-
-import java.util.Map;
 
 /**
  * Created by renatomarroquin on 2017-01-30.

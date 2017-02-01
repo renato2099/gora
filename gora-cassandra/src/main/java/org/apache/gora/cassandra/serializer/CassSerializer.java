@@ -1,9 +1,9 @@
-package org.apache.gora.cassandra.ser;
+package org.apache.gora.cassandra.serializer;
 
-import org.apache.gora.cassandra.st.CassClient;
+import org.apache.gora.cassandra.store.CassClient;
 import org.apache.gora.persistency.impl.PersistentBase;
 
-import static org.apache.gora.cassandra.st.CassStore.SerializerType;
+import static org.apache.gora.cassandra.store.CassStore.SerializerType;
 
 /**
  * Created by renatomarroquin on 2017-01-30.

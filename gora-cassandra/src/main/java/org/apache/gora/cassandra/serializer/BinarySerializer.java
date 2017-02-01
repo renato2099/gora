@@ -1,20 +1,19 @@
-package org.apache.gora.cassandra.ser;
+package org.apache.gora.cassandra.serializer;
 
-import org.apache.gora.cassandra.st.CassClient;
+import org.apache.gora.cassandra.store.CassClient;
 import org.apache.gora.persistency.impl.PersistentBase;
 
 /**
  * Created by renatomarroquin on 2017-01-30.
  */
-public class AvroSerializer extends CassSerializer {
-    public AvroSerializer(CassClient cc){
+public class BinarySerializer extends CassSerializer {
+    public BinarySerializer(CassClient cc){
         super(cc);
     }
+
     @Override
     public void createSchema() {
-        //TODO unroll schema
-        this.client.getMapping();
-        //TODO let client create schema
+
     }
 
     @Override

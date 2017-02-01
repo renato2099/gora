@@ -26,7 +26,7 @@ package org.apache.gora.cassandra;
 import org.apache.cassandra.io.util.FileUtils;
 import org.apache.cassandra.service.CassandraDaemon;
 import org.apache.gora.GoraTestDriver;
-import org.apache.gora.cassandra.st.CassStore;
+import org.apache.gora.cassandra.store.CassStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

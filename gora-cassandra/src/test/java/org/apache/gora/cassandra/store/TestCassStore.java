@@ -24,7 +24,6 @@
 package org.apache.gora.cassandra.store;
 
 import org.apache.gora.cassandra.GoraCassTestDriver;
-import org.apache.gora.cassandra.st.CassStore;
 import org.apache.gora.examples.generated.Employee;
 import org.apache.gora.examples.generated.WebPage;
 import org.apache.gora.store.DataStore;
