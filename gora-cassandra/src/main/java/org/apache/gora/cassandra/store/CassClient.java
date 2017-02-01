@@ -2,15 +2,24 @@ package org.apache.gora.cassandra.store;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
+import com.datastax.driver.core.exceptions.NoHostAvailableException;
 import com.datastax.driver.core.schemabuilder.SchemaBuilder;
 import org.apache.gora.persistency.impl.PersistentBase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.Properties;
+
+import static org.apache.gora.cassandra.store.CassStore.DEF_CLUSTER_NAME;
+import static org.apache.gora.cassandra.store.CassStore.DEF_CONTACT_POINT;
+import static org.apache.gora.cassandra.store.CassStore.DEF_CONTACT_PORT;
+
 /**
  * Created by renatomarroquin on 2017-01-30.
  */
 public class CassClient<K, T extends PersistentBase> {
+    public static final Logger LOG = LoggerFactory.getLogger(CassClient.class);
     private Class<K> keyClass;
     private Class<T> persistentClass;
     private CassandraMapping cassandraMapping;
@@ -24,22 +33,30 @@ public class CassClient<K, T extends PersistentBase> {
         this.cassandraMapping = CassandraMappingManager.getManager().get(persistentClass);
         String username = "";
         String password = "";
-        String clusterName = "";
-        String contactPoint = "";
+        String clusterName = DEF_CLUSTER_NAME;
+        String contactPoint = DEF_CONTACT_POINT;
+        String contactPort = DEF_CONTACT_PORT;
 
         if (properties != null) {
-            username = properties.getProperty("gora.cassandrastore.username");
-            password = properties.getProperty("gora.cassandrastore.password");
-            clusterName = properties.getProperty("gora.cassandrastore.cluster");
-            contactPoint = properties.getProperty("gora.cassandrastore.host");
+            username = properties.getProperty("gora.cassandrastore.username", "");
+            password = properties.getProperty("gora.cassandrastore.password", "");
+            clusterName = properties.getProperty("gora.cassandrastore.cluster", clusterName);
+            contactPoint = properties.getProperty("gora.cassandrastore.host", contactPoint);
+            contactPort = properties.getProperty("gora.cassandrastore.host.port", contactPort);
         }
 
-        Cluster.Builder clBuilder = Cluster.builder().addContactPoint(contactPoint).withClusterName(clusterName);
+        Cluster.Builder clBuilder = Cluster.builder();
+        clBuilder.withClusterName(clusterName).addContactPoint(contactPoint).withPort(Integer.parseInt(contactPort));
+
         if (username != null || password != null) {
             clBuilder.withCredentials(username, password);
         }
-        this.cluster = clBuilder.build();
-        this.session = this.cluster.connect();
+        try {
+            this.cluster = clBuilder.build();
+            this.session = this.cluster.connect();
+        } catch (IllegalArgumentException | NoHostAvailableException e) {
+            LOG.error(String.format("Error while connecting to Cassandra cluster.%s", e.getMessage()));
+        }
     }
 
     public void createKeyspace(String ks, int ksRepFactor, String ksRepStrategy) {

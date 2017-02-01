@@ -32,8 +32,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
-// Logging imports
-
 /**
  * Helper class for third party tests using gora-cassandra backend. 
  * @see GoraTestDriver for test specifics.
@@ -83,7 +81,6 @@ public class GoraCassTestDriver extends GoraTestDriver {
       cassandraDaemon = new CassandraDaemon();
       cassandraDaemon.init(null);
       cassandraThread = new Thread(new Runnable() {
-	
         public void run() {
           try {
             cassandraDaemon.start();
@@ -92,12 +89,11 @@ public class GoraCassTestDriver extends GoraTestDriver {
           }
         }
       });
-	
+
       cassandraThread.setDaemon(true);
       cassandraThread.start();
     } catch (Exception e) {
       log.error("Embedded casandra server start failed!", e);
-
       // cleanup
       tearDownClass();
     }

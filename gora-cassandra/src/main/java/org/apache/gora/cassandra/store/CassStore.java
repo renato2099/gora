@@ -28,6 +28,9 @@ public class CassStore <K, T extends PersistentBase> extends DataStoreBase<K, T>
     // Consistency level for Cassandra write operations.
     private static final String WRITE_OP_CL = "write.consistency.level";
     private static final String SERIALIZER_TYPE = "serializer";
+    public static final String DEF_CLUSTER_NAME = "Test Cluster";
+    public static final String DEF_CONTACT_POINT = "localhost";
+    public static final String DEF_CONTACT_PORT = "9042";
 
     // Variables to hold different consistency levels defined by the properties.
     private static String colFamConsLvl;
