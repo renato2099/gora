@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 import java.util.Properties;
 
-import static org.apache.gora.cassandra.store.CassStore.DEF_CLUSTER_NAME;
-import static org.apache.gora.cassandra.store.CassStore.DEF_CONTACT_POINT;
-import static org.apache.gora.cassandra.store.CassStore.DEF_CONTACT_PORT;
+import static org.apache.gora.cassandra.store.CassandraStore.DEF_CLUSTER_NAME;
+import static org.apache.gora.cassandra.store.CassandraStore.DEF_CONTACT_POINT;
+import static org.apache.gora.cassandra.store.CassandraStore.DEF_CONTACT_PORT;
 
 /**
  * Created by renatomarroquin on 2017-01-30.
@@ -86,9 +86,9 @@ public class CassClient<K, T extends PersistentBase> {
 
     public void createTable(String ksName, String colFamily, Map<String, String> colsAttribs) {
         SchemaBuilder.createTable(ksName, colFamily);
-//        colsAttribs.forEach((colName, colTtl) -> {
-//            String colType = getColType(colName);
-//        });
+        for(Map.Entry entry: colsAttribs.entrySet()) {
+            String colType = getColType(entry.getKey().toString());
+        }
 
     }
 }

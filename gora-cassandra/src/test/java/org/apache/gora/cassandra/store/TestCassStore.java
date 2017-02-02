@@ -54,13 +54,13 @@ public class TestCassStore extends DataStoreTestBase {
   @SuppressWarnings("unchecked")
   @Override
   protected DataStore<String, Employee> createEmployeeDataStore() throws IOException {
-    return DataStoreFactory.getDataStore(CassStore.class, String.class, Employee.class, conf);
+    return DataStoreFactory.getDataStore(CassandraStore.class, String.class, Employee.class, conf);
   }
 
   @SuppressWarnings("unchecked")
   @Override
   protected DataStore<String, WebPage> createWebPageDataStore() throws IOException {
-    return DataStoreFactory.getDataStore(CassStore.class, String.class, WebPage.class, conf);
+    return DataStoreFactory.getDataStore(CassandraStore.class, String.class, WebPage.class, conf);
   }
 
   @Ignore("GORA-299 o.a.g.cassandra.CassandraStore#newQuery() should not use query.setFields(getFieldsToQuery(null));")

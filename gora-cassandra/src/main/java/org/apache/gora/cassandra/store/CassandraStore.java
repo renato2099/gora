@@ -18,16 +18,16 @@ import static org.apache.gora.store.DataStoreFactory.findProperty;
 /**
  * Created by renatomarroquin on 2017-01-30.
  */
-public class CassStore <K, T extends PersistentBase> extends DataStoreBase<K, T> {
+public class CassandraStore<K, T extends PersistentBase> extends DataStoreBase<K, T> {
     // Logging implementation
-    public static final Logger LOG = LoggerFactory.getLogger(CassStore.class);
+    public static final Logger LOG = LoggerFactory.getLogger(CassandraStore.class);
     // Consistency level for Cassandra column families
     private static final String COL_FAM_CL = "cf.consistency.level";
     // Consistency level for Cassandra read operations.
     private static final String READ_OP_CL = "read.consistency.level";
     // Consistency level for Cassandra write operations.
     private static final String WRITE_OP_CL = "write.consistency.level";
-    private static final String SERIALIZER_TYPE = "serializer";
+    private static final String SERIALIZER_TYPE = "serialization";
     public static final String DEF_CLUSTER_NAME = "Test Cluster";
     public static final String DEF_CONTACT_POINT = "localhost";
     public static final String DEF_CONTACT_PORT = "9042";

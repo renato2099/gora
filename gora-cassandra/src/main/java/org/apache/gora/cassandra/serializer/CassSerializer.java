@@ -3,7 +3,7 @@ package org.apache.gora.cassandra.serializer;
 import org.apache.gora.cassandra.store.CassClient;
 import org.apache.gora.persistency.impl.PersistentBase;
 
-import static org.apache.gora.cassandra.store.CassStore.SerializerType;
+import static org.apache.gora.cassandra.store.CassandraStore.SerializerType;
 
 /**
  * Created by renatomarroquin on 2017-01-30.
@@ -30,7 +30,7 @@ public abstract class CassSerializer<K, T extends PersistentBase> {
     public abstract void get(String query);
 
     public static CassSerializer getSerializer(CassClient cc, String type) {
-        SerializerType serType = SerializerType.valueOf(type.toUpperCase());
+        SerializerType serType = type.isEmpty() ? SerializerType.NATIVE : SerializerType.valueOf(type.toUpperCase());
         CassSerializer ser;
         switch (serType) {
             case AVRO:
